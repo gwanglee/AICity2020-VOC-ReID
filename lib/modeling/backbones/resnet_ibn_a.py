@@ -203,7 +203,7 @@ class ResNet_IBN(nn.Module):
         return x
 
     def load_param(self, model_path):
-        param_dict = torch.load(model_path, map_location=torch.device('cpu'))
+        param_dict = torch.load(model_path)# map_location=torch.device('cpu'))
         for i in param_dict['state_dict']:
             if 'fc' in i[7:]:
                 continue
