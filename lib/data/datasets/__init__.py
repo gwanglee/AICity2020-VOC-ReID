@@ -13,7 +13,7 @@ from .aicity20_ReColor import AICity20ReColor
 from .aicity20_ReType import AICity20ReType
 from .dataset_loader import ImageDataset
 from .bases import BaseImageDataset, apply_id_bias
-from .personx_spgan import personX_spgan
+from .personx_spgan import PersonX_Spgan
 
 __factory = {
     'market1501': Market1501,
@@ -28,8 +28,8 @@ __factory = {
     'aicity20-ReCam': AICity20ReCam,
     'aicity20-ReColor': AICity20ReColor,
     'aicity20-ReType': AICity20ReType,
-    'personX': personX,
-    'personX_spgan': personX_spgan
+    # 'personX': personX,
+    'personx_spgan': PersonX_Spgan,
 }
 
 

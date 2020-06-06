@@ -5,11 +5,12 @@ import os.path as osp
 import os
 import warnings
 
-from ..dataset import ImageDataset
+# from ..dataset import ImageDataset
+from .bases import BaseImageDataset
 
 # https://kaiyangzhou.github.io/deep-person-reid/user_guide.html#use-your-own-dataset
 
-class PersonX_Spgan(ImageDataset):
+class PersonX_Spgan(BaseImageDataset):
     """Person X.
 
     Reference:
@@ -25,7 +26,8 @@ class PersonX_Spgan(ImageDataset):
     dataset_dir = 'personx_spgan'
     dataset_url = 'https://drive.google.com/open?id=18qIbI1XiG2n36qCTS-Te-2XATxiHNVDj'
 
-    def __init__(self, root='',  **kwargs):
+    def __init__(self, root='', verbose=True, **kwargs):
+        super(PersonX_Spgan, self).__init__()
 
         train_path = os.path.join(root, 'personX_spgan/image_train')
         query_path = os.path.join(root, 'target_validation/image_query')
@@ -34,6 +36,9 @@ class PersonX_Spgan(ImageDataset):
         train = self.process_dir(train_path)
         query = self.process_dir(query_path)
         gallery = self.process_dir(gallery_path)
+
+        if verbose:
+            print("=> PersonX-SPGAN loaded")
 
         # self.root = osp.abspath(osp.expanduser(root))
         # self.dataset_dir = osp.join(self.root, self.dataset_dir)
@@ -70,7 +75,7 @@ class PersonX_Spgan(ImageDataset):
         # if self.market1501_500k:
         #     gallery += self.process_dir(self.extra_gallery_dir, relabel=False)
 
-        super(PersonX_Spgan, self).__init__(train, query, gallery, **kwargs)
+        # super(PersonX_Spgan, self).__init__(train, query, gallery, **kwargs)
 
     def process_dir(self, dir_path):
 
