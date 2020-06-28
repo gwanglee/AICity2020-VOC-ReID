@@ -1,6 +1,6 @@
 #----------------------- ensemble three models (resnet50, resnet101, resnext101)-------------------------------
 python tools/train.py --config_file='configs/visda.yml' \
-MODEL.DEVICE_ID "('1')" \
+MODEL.DEVICE_ID "('0')" \
 MODEL.MODEL_TYPE "baseline" \
 MODEL.NAME "('resnet50_ibn_a')" \
 MODEL.PRETRAIN_PATH "('.cache/torch/checkpoints/resnet50_ibn_a.pth.tar')" \
@@ -23,7 +23,7 @@ OUTPUT_DIR "('./output/visda/base-ensemble/r50-320-circle')"
 
 
 python tools/train.py --config_file='configs/visda.yml' \
-MODEL.DEVICE_ID "('1')" \
+MODEL.DEVICE_ID "('0')" \
 MODEL.MODEL_TYPE "baseline" \
 MODEL.NAME "('resnet101_ibn_a')" \
 MODEL.PRETRAIN_PATH "('.cache/torch/checkpoints/resnet101_ibn_a.pth.tar')" \
@@ -46,7 +46,7 @@ OUTPUT_DIR "('./output/visda/base-ensemble/r101-320-circle')"
 
 
 python tools/train.py --config_file='configs/visda.yml' \
-MODEL.DEVICE_ID "('1')" \
+MODEL.DEVICE_ID "('0')" \
 MODEL.MODEL_TYPE "baseline" \
 MODEL.NAME "('resnext101_ibn_a')" \
 MODEL.PRETRAIN_PATH "('.cache/torch/checkpoints/resnext101_ibn_a.pth.tar')" \
