@@ -116,8 +116,8 @@ def main():
 
     ## read meta information
     dataset = AICity20(cfg.DATASETS.ROOT_DIR)
-    #write_result(indices_np, os.path.dirname(cfg.TEST.WEIGHT), topk=100)
-    write_result_with_track(indices_np, os.path.dirname(cfg.TEST.WEIGHT), dataset.test_tracks)
+    write_result(indices_np, os.path.dirname(cfg.TEST.WEIGHT), topk=100)
+    # write_result_with_track(indices_np, os.path.dirname(cfg.TEST.WEIGHT), dataset.test_tracks)
 
 if __name__ == '__main__':
     main()
