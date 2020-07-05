@@ -3,6 +3,7 @@ from .resnet_ibn_a import resnet50_ibn_a, resnet101_ibn_a, se_resnet101_ibn_a
 from .resnext_ibn_a import resnext50_ibn_a, resnext101_ibn_a
 from .resnest import resnest50
 from .regnet.regnet import regnety_800mf, regnety_1600mf, regnety_3200mf
+from .rexnetv1 import ReXNetV1
 
 factory = {
     'resnet50': resnet50,
@@ -13,6 +14,7 @@ factory = {
     'regnety_800mf': regnety_800mf,
     'regnety_1600mf': regnety_1600mf,
     'regnety_3200mf': regnety_3200mf,
+    'rexnet': ReXNetV1,
 }
 def build_backbone(name, *args, **kwargs):
     if name not in factory.keys():

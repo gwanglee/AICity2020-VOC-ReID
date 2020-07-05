@@ -31,7 +31,8 @@ def write_result(indices, dst_dir, topk=100):
     with open(os.path.join(dst_dir, 'result.txt'), 'w') as f:
         for i in range(m):
             write_line = indices[i]
-            write_line = ' '.join(map(str, write_line.tolist())) + '\n'
+            write_line = ' '.join(map(str, ['{:04d}'.format(j) for j in indices[i]])) + '\n'
+            # write_line = ' '.join(map(str, write_line.tolist())) + '\n'
             f.write(write_line)
 
 '''
