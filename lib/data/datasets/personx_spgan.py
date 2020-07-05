@@ -34,8 +34,8 @@ class PersonX_Spgan(BaseImageDataset):
         gallery_path = os.path.join(root, 'target_validation/image_gallery')
 
         train = self.process_dir(train_path)
-        query = self.process_dir(query_path)
-        gallery = self.process_dir(gallery_path)
+        query = self.process_dir(query_path, './data/datasets/index_validation_query.txt')
+        gallery = self.process_dir(gallery_path, './data/datasets/index_validation_gallery.txt')
 
         self.train = train
         self.query = query
@@ -45,61 +45,36 @@ class PersonX_Spgan(BaseImageDataset):
         self.num_query_pids, self.num_query_imgs, self.num_query_cams = self.get_imagedata_info(self.query)
         self.num_gallery_pids, self.num_gallery_imgs, self.num_gallery_cams = self.get_imagedata_info(self.gallery)
 
+        from random import random
         for i, q in enumerate(self.query):
-            print(i, q)
+            if random > 0.95:
+                print(i, q)
 
         for i, g in enumerate(self.gallery):
-            print(i, g)
+            if random > 0.95:
+                print(i, g)
 
         if verbose:
             print("=> PersonX-SPGAN loaded")
 
-        # self.root = osp.abspath(osp.expanduser(root))
-        # self.dataset_dir = osp.join(self.root, self.dataset_dir)
-        # self.download_dataset(self.dataset_dir, self.dataset_url)
-        #
-        # # allow alternative directory structure
-        # self.data_dir = self.dataset_dir
-        # data_dir = osp.join(self.data_dir, 'Market-1501-v15.09.15')
-        # if osp.isdir(data_dir):
-        #     self.data_dir = data_dir
-        # else:
-        #     warnings.warn(
-        #         'The current data structure is deprecated. Please '
-        #         'put data folders such as "bounding_box_train" under '
-        #         '"Market-1501-v15.09.15".'
-        #     )
-        #
-        # self.train_dir = osp.join(self.data_dir, 'bounding_box_train')
-        # self.query_dir = osp.join(self.data_dir, 'query')
-        # self.gallery_dir = osp.join(self.data_dir, 'bounding_box_test')
-        # self.extra_gallery_dir = osp.join(self.data_dir, 'images')
-        # self.market1501_500k = market1501_500k
-        #
-        # required_files = [
-        #     self.data_dir, self.train_dir, self.query_dir, self.gallery_dir
-        # ]
-        # if self.market1501_500k:
-        #     required_files.append(self.extra_gallery_dir)
-        # self.check_before_run(required_files)
-        #
-        # train = self.process_dir(self.train_dir, relabel=True)
-        # query = self.process_dir(self.query_dir, relabel=False)
-        # gallery = self.process_dir(self.gallery_dir, relabel=False)
-        # if self.market1501_500k:
-        #     gallery += self.process_dir(self.extra_gallery_dir, relabel=False)
 
-        # super(PersonX_Spgan, self).__init__(train, query, gallery, **kwargs)
-
-    def process_dir(self, dir_path):
+    def process_dir(self, dir_path, list_path=None):
 
         data = []
-        for img in os.listdir(dir_path):
-            if not img.startswith('.') and img.endswith('.jpg'):
-                splitted  = img.split('_')
-                pid, cid = int(splitted[0]), int(splitted[1][1])
+        if list_path is None:
+            for img in os.listdir(dir_path):
+                if not img.startswith('.') and img.endswith('.jpg'):
+                    splitted  = img.split('_')
+                    pid, cid = int(splitted[0]), int(splitted[1][1])
 
-                data.append((os.path.join(dir_path, img), pid, cid))
+                    data.append((os.path.join(dir_path, img), pid, cid))
+        else:
+            with open(list_path, 'r') as rf:
+                lines = rf.readlines()
+                for line in lines:
+                    words = line.strip().split()
+                    data.append((os.path.join(dir_path, words[0]), int(words[2]), int(words[1])))
+
 
         return data
         #
