@@ -34,8 +34,8 @@ class PersonX_Spgan(BaseImageDataset):
         gallery_path = os.path.join(root, 'target_validation/image_gallery')
 
         train = self.process_dir(train_path)
-        query = self.process_dir(query_path, './data/datasets/index_validation_query.txt')
-        gallery = self.process_dir(gallery_path, './data/datasets/index_validation_gallery.txt')
+        query = self.process_dir(query_path, './lib/data/datasets/index_validation_query.txt')
+        gallery = self.process_dir(gallery_path, './lib/data/datasets/index_validation_gallery.txt')
 
         self.train = train
         self.query = query
