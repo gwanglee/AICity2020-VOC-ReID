@@ -3,13 +3,14 @@ import sys
 sys.path.append('.')
 from lib.data.datasets.aicity20 import AICity20
 from tools.aicity20.submit import write_result_with_track
+from tools.aicity20.submit import write_result
 
 
 if __name__ == '__main__':
-    dataset = AICity20('/home/zxy/data/ReID/vehicle')
-    distmat_path = ['./output/aicity20/0409-ensemble/r50-320-circle/distmat.npy',
-                    './output/aicity20/0409-ensemble/next101-320-circle/distmat.npy',
-                    './output/aicity20/0409-ensemble/r101-320-circle/distmat.npy',
+    # dataset = AICity20('/home/zxy/data/ReID/vehicle')
+    distmat_path = ['./output/visda/base-ensemble-0704/r50-E40/distmat.npy',
+                    './output/visda/base-ensemble-0704/r101-E40/distmat.npy',
+                    './output/visda/base-ensemble-0704/rx101-E40/distmat.npy',
                     ]
     #cam_distmat = np.load('./output/aicity20/0407-ReCamID/distmat_submit.npy')
     #ori_distmat = np.load('./output/aicity20/0409-ensemble/ReTypeID/distmat_submit.npy')
@@ -20,5 +21,5 @@ if __name__ == '__main__':
     #distmat = distmat - 0.1 * cam_distmat - 0.1 * ori_distmat
 
     indices = np.argsort(distmat, axis=1)
-    write_result_with_track(indices, './output/aicity20/submit/', dataset.test_tracks)
-
+    # write_result_with_track(indices, './output/aicity20/submit/', dataset.test_tracks)
+    write_result(indices, './output/visda/base-ensemble-0704')

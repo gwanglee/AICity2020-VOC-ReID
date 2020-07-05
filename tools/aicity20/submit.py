@@ -24,11 +24,13 @@ def write_result(indices, dst_dir, topk=100):
     indices = indices[:, :topk]
     if not os.path.exists(dst_dir):
         os.makedirs(dst_dir)
+
+    indices = indices
     m, n = indices.shape
     print('m: {}  n: {}'.format(m, n))
-    with open(os.path.join(dst_dir, 'track2.txt'), 'w') as f:
+    with open(os.path.join(dst_dir, 'result.txt'), 'w') as f:
         for i in range(m):
-            write_line = indices[i] + 1
+            write_line = indices[i]
             write_line = ' '.join(map(str, write_line.tolist())) + '\n'
             f.write(write_line)
 
