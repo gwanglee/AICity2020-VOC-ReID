@@ -47,11 +47,11 @@ class PersonX_Spgan(BaseImageDataset):
 
         from random import random
         for i, q in enumerate(self.query):
-            if random > 0.95:
+            if random() > 0.95:
                 print(i, q)
 
         for i, g in enumerate(self.gallery):
-            if random > 0.95:
+            if random() > 0.95:
                 print(i, g)
 
         if verbose:
