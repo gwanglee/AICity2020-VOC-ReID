@@ -18,7 +18,8 @@ factory = {
     'regnety_3200mf': regnety_3200mf,
     'rexnet': ReXNetV1,
 }
+
 def build_backbone(name, *args, **kwargs):
     if name not in factory.keys():
-        raise KeyError("Unknown datasets: {}".format(name))
+        raise KeyError("Unknown backbone: {}".format(name))
     return factory[name](*args, **kwargs)
