@@ -78,7 +78,7 @@ class PersonX(ImageDataset):
         for img in os.listdir(dir_path):
             if not img.startswith('.') and img.endswith('.jpg'):
                 splitted  = img.split('_')
-                pid, cid = int(splitted[0])-1, int(splitted[1][1])
+                pid, cid = int(splitted[0]), int(splitted[1][1])
 
                 data.append((os.path.join(dir_path, img), pid, cid))
 
