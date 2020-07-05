@@ -15,22 +15,22 @@ model_urls = {
 }
 
 
-# class IBN(nn.Module):
-#     def __init__(self, planes):
-#         super(IBN, self).__init__()
-#         half1 = int(planes/2)
-#         self.half = half1
-#         half2 = planes - half1
-#         self.IN = nn.InstanceNorm2d(half1, affine=True)
-#         self.BN = nn.BatchNorm2d(half2)
-#
-#     def forward(self, x):
-#         split = torch.split(x, self.half, 1)
-#         out1 = self.IN(split[0].contiguous())
-#         out2 = self.BN(split[1].contiguous())
-#         out = torch.cat((out1, out2), 1)
-#         return out
-#
+class IBN_Cluster(nn.Module):
+    def __init__(self, planes):
+        super(IBN_Cluster, self).__init__()
+        half1 = int(planes/2)
+        self.half = half1
+        half2 = planes - half1
+        self.IN = nn.InstanceNorm2d(half1, affine=True)
+        self.BN = nn.BatchNorm2d(half2)
+
+    def forward(self, x):
+        split = torch.split(x, self.half, 1)
+        out1 = self.IN(split[0].contiguous())
+        out2 = self.BN(split[1].contiguous())
+        out = torch.cat((out1, out2), 1)
+        return out
+
 #
 # class SELayer(nn.Module):
 #     def __init__(self, channel, reduction=16):
@@ -101,7 +101,7 @@ class Bottleneck_IBN_Cluster(nn.Module):
         super(Bottleneck_IBN_Cluster, self).__init__()
         self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)
         if ibn:
-            self.bn1 = IBN(planes)
+            self.bn1 = IBN_Cluster(planes)
         else:
             self.bn1 = nn.BatchNorm2d(planes)
         self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride,
