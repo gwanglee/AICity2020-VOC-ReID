@@ -45,14 +45,11 @@ class PersonX_Spgan(BaseImageDataset):
         self.num_query_pids, self.num_query_imgs, self.num_query_cams = self.get_imagedata_info(self.query)
         self.num_gallery_pids, self.num_gallery_imgs, self.num_gallery_cams = self.get_imagedata_info(self.gallery)
 
-        from random import random
-        for i, q in enumerate(self.query):
-            if random() > 0.95:
-                print(i, q)
+        for i, q in enumerate(self.query[:3]):
+            print(i, q)
 
-        for i, g in enumerate(self.gallery):
-            if random() > 0.95:
-                print(i, g)
+        for i, g in enumerate(self.gallery[:3]):
+            print(i, g)
 
         if verbose:
             print("=> PersonX-SPGAN loaded")
