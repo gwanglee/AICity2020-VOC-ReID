@@ -17,6 +17,7 @@ factory = {
     'regnety_1600mf': regnety_1600mf,
     'regnety_3200mf': regnety_3200mf,
     'rexnet': ReXNetV1,
+    'se_resnet101_ibn_a': se_resnet101_ibn_a,
 }
 
 def build_backbone(name, *args, **kwargs):
