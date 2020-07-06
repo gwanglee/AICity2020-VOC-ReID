@@ -92,7 +92,7 @@ def re_ranking(probFea, galFea, k1, k2, lambda_value, local_distmat=None, only_l
     # cam_dist = np.load('./output/aicity20/0409-ensemble/ReCamID/feat_distmat.npy')
     # ori_dist = np.load('./output/aicity20/0409-ensemble/ReOriID/feat_distmat.npy')
     if USE_VOC:
-        original_dist = original_dist - 0.3 * ori_dist# - 0.1 * cam_dist # - 0.04 * type_dist
+        original_dist = original_dist + 0.1 * ori_dist# - 0.1 * cam_dist # - 0.04 * type_dist
 
     gallery_num = original_dist.shape[0]
     original_dist = np.transpose(original_dist / np.max(original_dist, axis=0))

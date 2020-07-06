@@ -19,5 +19,21 @@ if __name__ == '__main__':
               torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num, all_num).t()
     distmat.addmm_(1, -2, feat, feat.t())
     distmat = distmat.cpu().numpy()
+
     np.save(src_dir + '/' + 'feat_distmat', distmat)
     np.save(src_dir + '/' + 'feat_distmat_2', distmat)
+
+    ####
+
+    feat = np.load(os.path.join(src_dir, 'feats_ori.npy'))
+
+    feat = torch.tensor(feat, device='cpu')
+    all_num = len(feat)
+    distmat = torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num, all_num) + \
+              torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num, all_num).t()
+    distmat.addmm_(1, -2, feat, feat.t())
+    distmat = distmat.cpu().numpy()
+
+    np.save(src_dir + '/' + 'feat_distmat_ori', distmat)
+    np.save(src_dir + '/' + 'feat_distmat_ori_2', distmat)
+
