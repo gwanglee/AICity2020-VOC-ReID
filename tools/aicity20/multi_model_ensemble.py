@@ -8,8 +8,8 @@ from tools.aicity20.submit import write_result
 
 if __name__ == '__main__':
     # dataset = AICity20('/home/zxy/data/ReID/vehicle')
-    distmat_path = ['./output/visda/base-ensmeble/dist_mat_1.npy',
-                    './output/visda/base-ensmeble/dist_mat_2.npy',
+    distmat_path = ['./output/visda/base-ensemble/dist_mat_1.npy',
+                    './output/visda/base-ensemble/dist_mat_2.npy',
                     # './output/visda/base-ensemble-0704/r50-E40/distmat.npy',
         #             './output/visda/base-ensemble-0704/r101-E40/distmat.npy',
         #             './output/visda/base-ensemble-0704/rx101-E40/distmat.npy',
