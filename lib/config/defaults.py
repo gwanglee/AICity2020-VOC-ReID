@@ -61,9 +61,9 @@ _C.MODEL.EMBEDDING_DIM = 512
 # -----------------------------------------------------------------------------
 _C.INPUT = CN()
 # Size of the image during training
-_C.INPUT.SIZE_TRAIN = [128, 256]
+_C.INPUT.SIZE_TRAIN = [256, 128]
 # Size of the image during test
-_C.INPUT.SIZE_TEST = [128, 256]
+_C.INPUT.SIZE_TEST = [256, 128]
 _C.INPUT.COLORJIT_PROB = 1.0
 _C.INPUT.AUGMIX_PROB = 0.0
 # Random probability for image horizontal flip

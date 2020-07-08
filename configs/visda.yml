@@ -1,6 +1,6 @@
 MODEL:
   PRETRAIN_CHOICE: 'imagenet'
-  PRETRAIN_PATH: ''
+  PRETRAIN_PATH: './.cache/torch/checkpoints/resnet50_ibn_a.pth.tar'
   METRIC_LOSS_TYPE: 'triplet'
   TRIPLET_LOSS_WEIGHT: 1.0
   IF_LABELSMOOTH: 'on'
@@ -9,8 +9,8 @@ MODEL:
   ID_LOSS_TYPE: 'circle'
 
 INPUT:
-  SIZE_TRAIN: [128, 256]
-  SIZE_TEST: [128, 256]
+  SIZE_TRAIN: [256, 128]
+  SIZE_TEST: [256, 128]
   PROB: 0.5 # random horizontal flip
   RE_PROB: 0.5 # random erasing
   PADDING: 10
