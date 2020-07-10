@@ -123,10 +123,10 @@ def analyze(log_path):
             data_row.append('{}'.format(configs[cur][c]))
 
 
-    print(title_row)
-    print(data_row)
+    # print(title_row)
+    # print(data_row)
 
-    print('best: ', best_map)
+    # print('best: ', best_map)
 
     # draw loss plot
     lr = [np.log(l['lr']) for l in loss]
