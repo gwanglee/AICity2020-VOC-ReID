@@ -168,8 +168,9 @@ if __name__ == '__main__':
     with open('logs.txt', 'w') as wf:
         for p in os.listdir(root_path):
             if os.path.isdir(os.path.join(root_path, p)):
-                title, data = analyze(os.path.join(root_path, p, 'log.txt'))
-                if not title_written:
-                    wf.write(title+'\n')
-                    title_written = True
-                wf.write(data+'\n')
+                if os.path.exists(os.path.join(root_path, p, 'log.txt')):
+                    title, data = analyze(os.path.join(root_path, p, 'log.txt'))
+                    if not title_written:
+                        wf.write(title+'\n')
+                        title_written = True
+                    wf.write(data+'\n')
