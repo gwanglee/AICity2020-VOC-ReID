@@ -96,19 +96,8 @@ def analyze(log_path):
     title_row = []
     data_row = []
 
-    for cur in configs:
-        for c in configs[cur]:
-            title_row.append('{}.{}'.format(cur, c))
-            data_row.append('{}'.format(configs[cur][c]))
-
-    title_row.append('mAP')
-    data_row.append('{}'.format(ap[-1]))
-    title_row.append('Rank-1')
-    data_row.append('{}'.format(r1[-1]))
-    title_row.append('Rank-5')
-    data_row.append('{}'.format(r5[-1]))
-    title_row.append('Rank-10')
-    data_row.append('{}'.format(r10[-1]))
+    title_row.append('Best mAP')
+    data_row.append('{}'.format(best_map))
 
     title_row.append('mAP (avg_5)')
     data_row.append('{:.2f}'.format((sum([ap[-i] for i in range(1, 6)]))/5.0))
@@ -119,8 +108,19 @@ def analyze(log_path):
     title_row.append('Rank-10 (avg_5)')
     data_row.append('{:.2f}'.format((sum([r10[-i] for i in range(1, 6)]))/5.0))
 
-    title_row.append('Best mAP')
-    data_row.append('{}'.format(best_map))
+    title_row.append('mAP')
+    data_row.append('{}'.format(ap[-1]))
+    title_row.append('Rank-1')
+    data_row.append('{}'.format(r1[-1]))
+    title_row.append('Rank-5')
+    data_row.append('{}'.format(r5[-1]))
+    title_row.append('Rank-10')
+    data_row.append('{}'.format(r10[-1]))
+
+    for cur in configs:
+        for c in configs[cur]:
+            title_row.append('{}.{}'.format(cur, c))
+            data_row.append('{}'.format(configs[cur][c]))
 
 
     print(title_row)
