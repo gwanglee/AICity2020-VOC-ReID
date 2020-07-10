@@ -146,7 +146,7 @@ def analyze(log_path):
     plt.plot(r10)
     # plt.show()
 
-    return ', '.join(title_row), ', '.join(data_row)
+    return '\t'.join(title_row), '\t'.join(data_row)
 
 
 if __name__ == '__main__':
