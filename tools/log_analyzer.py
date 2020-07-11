@@ -187,7 +187,7 @@ if __name__ == '__main__':
         for i in range(num_cols):
             cur_col_data = set()
             for d in data:
-                cur_col_data.add(d)
+                cur_col_data.add(d[i])
             if len(cur_col_data) == 1:
                 to_remove.append(i)
 
