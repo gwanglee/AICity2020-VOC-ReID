@@ -135,16 +135,19 @@ def analyze(log_path):
     loss = [l['loss'] for l in loss]
 
     plt.plot(loss)
+    plt.savefig(log_path[:-4] + '_loss.png')
+
     plt.figure()
     plt.plot(lr)
+    plt.savefig(log_path[:-4] + '_lr.png')
 
     plt.figure()
     # draw accuracies
-
     plt.plot(ap)
     plt.plot(r1)
     plt.plot(r5)
     plt.plot(r10)
+    plt.savefig(log_path[:-4] + '_acc.png')
     # plt.show()
 
     return title_row, data_row
