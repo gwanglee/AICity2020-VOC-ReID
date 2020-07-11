@@ -45,7 +45,7 @@ def extract_loss(logs):
         elif 'Rank-1' in l:
             res_map[cur_epoch]['Rank-1'] = float(l.split(':')[-1][:-1])
 
-    return res_loss, res_map, best
+    return res_loss, res_map, best, cur_epoch
 
 
 def analyze(log_path):
@@ -76,7 +76,7 @@ def analyze(log_path):
                     body = re.sub('[\'\"]', '', body).strip()
                     configs[key][line.split(':')[0]] = body
 
-    loss, map, best_map = extract_loss(lines)
+    loss, map, best_map, last_epoch = extract_loss(lines)
 
     # for k in configs:
     #     print(k)
@@ -117,6 +117,9 @@ def analyze(log_path):
     data_row.append('{}'.format(r5[-1]))
     title_row.append('Rank-10')
     data_row.append('{}'.format(r10[-1]))
+
+    title_row.append('Last Epoch')
+    data_row.append('{}'.format(last_epoch))
 
     for cur in configs:
         for c in configs[cur]:
