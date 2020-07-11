@@ -10,6 +10,7 @@ def extract_loss(logs):
 
     lr = 0.0
     cur_epoch = -1
+    best = 0.0
 
     for l in logs:
         l = l.strip()
