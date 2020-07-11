@@ -154,6 +154,8 @@ def analyze(log_path):
     plt.savefig(log_path[:-4] + '_acc.png')
     # plt.show()
 
+    plt.close('all')
+
     return title_row, data_row
 
 
