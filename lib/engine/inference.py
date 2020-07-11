@@ -72,11 +72,13 @@ def inference_to_get_feats(
             output = [feats, pid, camid, img_path]
             metric.update(output)
 
-    if metric.feat_norm == 'yes':
-        print("The test feature is normalized")
-        feats = torch.nn.functional.normalize(metric.feats, dim=1, p=2)
+    feats = torch.cat(metric.feats, dim=0)
+    if metric.feat_norm:
+        feats = torch.nn.functional.normalize(feats, dim=1, p=2)
 
-    return metric.img_paths, metric.feats
+    # feats = torch.nn.functional.normalize(metric.feats, dim=1, p=2) if metric.feat_norm else metric.feats
+
+    return metric.img_paths, feats
 
 
 def select_topk(indices, query, gallery, topk=10):
