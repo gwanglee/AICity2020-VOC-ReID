@@ -146,7 +146,7 @@ def analyze(log_path):
     plt.plot(r10)
     # plt.show()
 
-    return '\t'.join(title_row), '\t'.join(data_row)
+    return title_row, data_row
 
 
 if __name__ == '__main__':
@@ -165,12 +165,35 @@ if __name__ == '__main__':
 
     title_written = False
 
+    title = None
+    data = list()
+    num_cols = 0
+
     with open('logs.txt', 'w') as wf:
         for p in os.listdir(root_path):
             if os.path.isdir(os.path.join(root_path, p)):
                 if os.path.exists(os.path.join(root_path, p, 'log.txt')):
-                    title, data = analyze(os.path.join(root_path, p, 'log.txt'))
-                    if not title_written:
-                        wf.write(title+'\n')
-                        title_written = True
-                    wf.write(data+'\n')
+                    t, d = analyze(os.path.join(root_path, p, 'log.txt'))
+
+                    if title is None:
+                        title = t
+                        num_cols = len(title)
+
+                    assert len(d) == num_cols, 'different num cols'
+                    data.append(d)
+
+        to_remove = []
+        for i in range(num_cols):
+            cur_col_data = set()
+            for d in data:
+                cur_col_data.add(d)
+            if len(cur_col_data) == 1:
+                to_remove.append(i)
+
+
+        def get_str(src, idx_to_remove):
+            return '\t'.join([w for i, w in enumerate(src) if i not in idx_to_remove])
+
+        wf.write(get_str(title, to_remove) + '\n')
+        for d in data:
+            wf.write(get_str(d, to_remove) + '\n')
