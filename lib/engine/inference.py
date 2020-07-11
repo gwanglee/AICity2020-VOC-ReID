@@ -58,6 +58,12 @@ def inference_to_get_feats(
     logger = logging.getLogger("reid_baseline.inference")
     logger.info("Enter inferencing")
     metric = evaluator(num_query, dataset, cfg, max_rank=50)
+
+    debug = True
+
+    if debug:
+        print(len(dataset))
+
     model.eval()
     start = time.time()
     with torch.no_grad():
@@ -72,6 +78,8 @@ def inference_to_get_feats(
             output = [feats, pid, camid, img_path]
             metric.update(output)
 
+    if debug:
+        print(type(metric.feats))
     feats = torch.cat(metric.feats, dim=0)
     if metric.feat_norm:
         feats = torch.nn.functional.normalize(feats, dim=1, p=2)
