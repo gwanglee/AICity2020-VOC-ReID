@@ -44,6 +44,41 @@ def inference(
         logger.info("CMC curve, Rank-{:<3}:{:.1%}".format(r, cmc[r - 1]))
     return indices_np
 
+
+### how to ?
+def inference_to_get_feats(
+        cfg,
+        model,
+        val_loader,
+        num_query,
+        dataset
+):
+    device = cfg.MODEL.DEVICE
+    model.to(device)
+    logger = logging.getLogger("reid_baseline.inference")
+    logger.info("Enter inferencing")
+    metric = evaluator(num_query, dataset, cfg, max_rank=50)
+    model.eval()
+    start = time.time()
+    with torch.no_grad():
+        for batch in val_loader:
+            data, pid, camid, img_path = batch
+            data = data.cuda()
+            feats = model(data)
+            if cfg.TEST.FLIP_TEST:
+                data_flip = data.flip(dims=[3])  # NCHW
+                feats_flip = model(data_flip)
+                feats = (feats + feats_flip) / 2
+            output = [feats, pid, camid, img_path]
+            metric.update(output)
+
+    if metric.feat_norm == 'yes':
+        print("The test feature is normalized")
+        feats = torch.nn.functional.normalize(metric.feats, dim=1, p=2)
+
+    return metric.img_paths, metric.feats
+
+
 def select_topk(indices, query, gallery, topk=10):
     results = []
     for i in range(indices.shape[0]):

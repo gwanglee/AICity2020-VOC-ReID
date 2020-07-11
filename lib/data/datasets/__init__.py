@@ -14,6 +14,8 @@ from .aicity20_ReType import AICity20ReType
 from .dataset_loader import ImageDataset
 from .bases import BaseImageDataset, apply_id_bias
 from .personx_spgan import PersonX_Spgan
+from .personx_spgan_test import PersonX_Spgan_Test
+from .personx_spgan_plabel import PersonX_Spgan_Plabel
 
 __factory = {
     'market1501': Market1501,
@@ -30,6 +32,8 @@ __factory = {
     'aicity20-ReType': AICity20ReType,
     # 'personX': personX,
     'personx_spgan': PersonX_Spgan,
+    'personx_spgan_test': PersonX_Spgan_Test,
+    'personx_spgan_plabel': PersonX_Spgan_Plabel,
 }
 
 

@@ -10,7 +10,7 @@ from .bases import BaseImageDataset
 
 # https://kaiyangzhou.github.io/deep-person-reid/user_guide.html#use-your-own-dataset
 
-class PersonX_Spgan_Test(BaseImageDataset):
+class PersonX_Spgan_Plabel(BaseImageDataset):
     """Person X.
 
     Reference:
@@ -27,19 +27,19 @@ class PersonX_Spgan_Test(BaseImageDataset):
     dataset_url = 'https://drive.google.com/open?id=18qIbI1XiG2n36qCTS-Te-2XATxiHNVDj'
 
     def __init__(self, root='', verbose=True, **kwargs):
-        super(PersonX_Spgan_Test, self).__init__()
+        super(PersonX_Spgan_Plabel, self).__init__()
 
         train_path = os.path.join(root, 'personX_spgan/image_train')
-        query_path = os.path.join(root, 'target_test/image_query')
-        gallery_path = os.path.join(root, 'target_test/image_gallery')
+        query_path = os.path.join(root, 'target_training')
+        gallery_path = os.path.join(root, 'target_training')
 
         train = self.process_dir(train_path)
-        query = self.process_dir(query_path, './data/challenge_datasets/target_test/index_test_query.txt')
-        gallery = self.process_dir(gallery_path, './data/challenge_datasets/target_test_gallery/.txt')
+        query = self.process_dir(query_path)#, './lib/data/datasets/index_validation_query.txt')
+        gallery = self.process_dir(gallery_path)#, './lib/data/datasets/index_validation_gallery.txt')
 
         self.train = train
-        self.query = query
-        self.gallery = gallery
+        self.query = query[:int(len(query)/2)]
+        self.gallery = query[int(len(query)/2):]
 
         self.num_train_pids, self.num_train_imgs, self.num_train_cams = self.get_imagedata_info(self.train)
         self.num_query_pids, self.num_query_imgs, self.num_query_cams = self.get_imagedata_info(self.query)
@@ -61,10 +61,10 @@ class PersonX_Spgan_Test(BaseImageDataset):
         if list_path is None:
             for img in os.listdir(dir_path):
                 if not img.startswith('.') and img.endswith('.jpg'):
-                    splitted  = img.split('_')
-                    pid, cid = int(splitted[0]), int(splitted[1][1])
+                    # splitted  = img.split('_')
+                    # pid, cid = int(splitted[0]), int(splitted[1][1])
 
-                    data.append((os.path.join(dir_path, img), pid, cid))
+                    data.append((os.path.join(dir_path, img), 0, 0))
         else:
             with open(list_path, 'r') as rf:
                 lines = rf.readlines()
@@ -74,7 +74,6 @@ class PersonX_Spgan_Test(BaseImageDataset):
 
 
         return data
-
         #
         #
         # img_paths = glob.glob(osp.join(dir_path, '*.jpg'))
