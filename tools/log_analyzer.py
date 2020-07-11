@@ -134,14 +134,18 @@ def analyze(log_path):
     e = [l['epoch'] for l in loss]
     loss = [l['loss'] for l in loss]
 
+    plt.figure()
+    plt.grid(True)
     plt.plot(loss)
     plt.savefig(log_path[:-4] + '_loss.png')
 
     plt.figure()
+    plt.grid(True)
     plt.plot(lr)
     plt.savefig(log_path[:-4] + '_lr.png')
 
     plt.figure()
+    plt.grid(True)
     # draw accuracies
     plt.plot(ap)
     plt.plot(r1)
