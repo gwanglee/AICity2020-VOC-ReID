@@ -137,11 +137,13 @@ def analyze(log_path):
     plt.figure()
     plt.grid(True)
     plt.plot(loss)
+    plt.xticks([i for i in range(0, len(e), 10)], [e for e in range(0, len(e), 10)])
     plt.savefig(log_path[:-4] + '_loss.png')
 
     plt.figure()
     plt.grid(True)
     plt.plot(lr)
+    plt.xticks([i for i in range(0, len(e), 10)], [e for e in range(0, len(e), 10)])
     plt.savefig(log_path[:-4] + '_lr.png')
 
     plt.figure()
@@ -151,6 +153,7 @@ def analyze(log_path):
     plt.plot(r1)
     plt.plot(r5)
     plt.plot(r10)
+    plt.xticks([i for i in range(0, len(ap)+1, 5)], [i*2 for i in range(0, len(ap)+1, 5)])
     plt.savefig(log_path[:-4] + '_acc.png')
     # plt.show()
 
