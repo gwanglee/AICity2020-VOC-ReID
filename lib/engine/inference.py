@@ -61,9 +61,6 @@ def inference_to_get_feats(
 
     debug = True
 
-    if debug:
-        print(len(dataset))
-
     model.eval()
     start = time.time()
     with torch.no_grad():

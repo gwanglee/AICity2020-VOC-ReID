@@ -29,17 +29,17 @@ class PersonX_Spgan_Plabel(BaseImageDataset):
     def __init__(self, root='', verbose=True, **kwargs):
         super(PersonX_Spgan_Plabel, self).__init__()
 
-        train_path = os.path.join(root, 'personX_spgan/image_train')
-        query_path = os.path.join(root, 'target_training')
-        gallery_path = os.path.join(root, 'target_training')
+        train_path = os.path.join(root, 'target_training/image_train')
+        # query_path = os.path.join(root, 'target_training')
+        # gallery_path = os.path.join(root, 'target_training')
 
         train = self.process_dir(train_path)
-        query = self.process_dir(query_path)#, './lib/data/datasets/index_validation_query.txt')
-        gallery = self.process_dir(gallery_path)#, './lib/data/datasets/index_validation_gallery.txt')
+        # query = self.process_dir(query_path)#, './lib/data/datasets/index_validation_query.txt')
+        # gallery = self.process_dir(gallery_path)#, './lib/data/datasets/index_validation_gallery.txt')
 
         self.train = train
-        self.query = query[:int(len(query)/2)]
-        self.gallery = query[int(len(query)/2):]
+        self.query = train[:int(len(train)/2)]
+        self.gallery = train[int(len(train)/2):]
 
         self.num_train_pids, self.num_train_imgs, self.num_train_cams = self.get_imagedata_info(self.train)
         self.num_query_pids, self.num_query_imgs, self.num_query_cams = self.get_imagedata_info(self.query)
