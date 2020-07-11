@@ -130,7 +130,7 @@ def analyze(log_path):
     # print('best: ', best_map)
 
     # draw loss plot
-    lr = [np.log(l['lr']) for l in loss]
+    lr = [np.log10(l['lr']) for l in loss]
     e = [l['epoch'] for l in loss]
     loss = [l['loss'] for l in loss]
 
