@@ -145,6 +145,10 @@ def re_ranking(probFea, galFea, k1, k2, lambda_value, local_distmat=None, only_l
         jaccard_dist[i] = 1 - temp_min / (2 - temp_min)
 
     final_dist = jaccard_dist * (1 - lambda_value) + original_dist * lambda_value
+
+    np.save('./dist_after_rerank.npy', final_dist)
+    print('./dist_after_rerank.npy')
+
     del original_dist
     del V
     del jaccard_dist
