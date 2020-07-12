@@ -9,10 +9,10 @@ from tools.aicity20.submit import write_result
 if __name__ == '__main__':
     # dataset = AICity20('/home/zxy/data/ReID/vehicle')
 
-    distmat_path = ['./output/visda/trained/resnet50_warmup_multi_step_cm0.3_cs100_1_rerb_xbm8/distmat.py',
-                   './output/visda/trained/resnet101_warmup_multi_step_cm0.3_cs100_1_rerb_xbm8/distmat.py',
-                   './output/visda/trained/resnet50_warmup_multi_step_cm0.3_cs100_2/distmat.py',
-                   './output/visda/trained/resnext101_warmup_multi_step_cm0.3_cs100_1_rerb_xbm8/distmat.py',
+    distmat_path = ['./output/visda/trained/resnet50_warmup_multi_step_cm0.3_cs100_1_rerb_xbm8/distmat.npy',
+                   './output/visda/trained/resnet101_warmup_multi_step_cm0.3_cs100_1_rerb_xbm8/distmat.npy',
+                   './output/visda/trained/resnet50_warmup_multi_step_cm0.3_cs100_2/distmat.npy',
+                   './output/visda/trained/resnext101_warmup_multi_step_cm0.3_cs100_1_rerb_xbm8/distmat.npy',
                    ]
     # distmat_path = ['./output/visda/base-ensemble/dist_mat_1.npy',
     #                 './output/visda/base-ensemble/dist_mat_2.npy',
