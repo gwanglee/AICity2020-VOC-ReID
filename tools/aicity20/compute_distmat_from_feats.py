@@ -28,7 +28,7 @@ if __name__ == '__main__':
     all_num = len(feat)
     distmat = torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num, all_num) + \
               torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num, all_num).t()
-    distmat.addmm_(feat, feat.t(), 1, -2)   # this is euclidean distance!
+    distmat.addmm_(feat, feat.t(), alpha=-2)   # this is euclidean distance!
     distmat = distmat.cpu().numpy()
 
     np.save(input_npy_path[:-4] + '_dist.npy', distmat)
