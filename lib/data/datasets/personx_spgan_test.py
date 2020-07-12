@@ -33,9 +33,10 @@ class PersonX_Spgan_Test(BaseImageDataset):
         query_path = os.path.join(root, 'target_test/image_query')
         gallery_path = os.path.join(root, 'target_test/image_gallery')
 
-        train = self.process_dir(train_path)
+        # train = self.process_dir(train_path)
         query = self.process_dir(query_path, './data/challenge_datasets/target_test/index_test_query.txt')
         gallery = self.process_dir(gallery_path, './data/challenge_datasets/target_test_gallery/.txt')
+        train = query
 
         self.train = train
         self.query = query
