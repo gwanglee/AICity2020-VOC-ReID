@@ -32,4 +32,5 @@ if __name__ == '__main__':
     distmat = distmat.cpu().numpy()
 
     np.save(input_npy_path[:-4] + '_dist.npy', distmat)
+    print("dist mat saved: " + input_npy_path[:-4] + '_dist.npy')
 
