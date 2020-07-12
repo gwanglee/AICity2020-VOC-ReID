@@ -175,7 +175,7 @@ if __name__ == '__main__':
         root_path = sys.argv[1]
         output_path = 'logs.txt'
     else:
-        root_path = '/Users/gglee/Downloads/output/visda/base-ensemble'
+        root_path = '/Users/gglee/Documents/VisDA/code/AICity2020-VOC-ReID/output/visda/base-ensemble-0704'
         output_path = 'logs.txt'
 
 
@@ -187,6 +187,7 @@ if __name__ == '__main__':
 
     with open('logs.txt', 'w') as wf:
         for p in os.listdir(root_path):
+            print(p)
             if os.path.isdir(os.path.join(root_path, p)):
                 if os.path.exists(os.path.join(root_path, p, 'log.txt')):
                     t, d = analyze(os.path.join(root_path, p, 'log.txt'))
