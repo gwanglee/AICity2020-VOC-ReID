@@ -20,9 +20,10 @@ def inference(
     model.to(device)
     logger = logging.getLogger("reid_baseline.inference")
     logger.info("Enter inferencing")
-    metric = evaluator(num_query, dataset, cfg, max_rank=50)
+    metric = evaluator(num_query, dataset, cfg, max_rank=100)
     model.eval()
     start = time.time()
+
     with torch.no_grad():
         for batch in val_loader:
             data, pid, camid, img_path = batch
@@ -34,6 +35,7 @@ def inference(
                 feats = (feats + feats_flip) / 2
             output = [feats, pid, camid, img_path]
             metric.update(output)
+
     end = time.time()
     logger.info("inference takes {:.3f}s".format((end - start)))
     torch.cuda.empty_cache()

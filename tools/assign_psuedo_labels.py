@@ -7,7 +7,7 @@ USE_RERANK = True
 
 if __name__ == '__main__':
     if USE_RERANK:
-        npy_path = '/Users/gglee/Downloads/distmat.npy'
+        npy_path = '/Users/gglee/Downloads/dist_after_rerank.npy'
     else:
         npy_path = '/Users/gglee/Downloads/feat_distmat.npy'
 

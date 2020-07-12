@@ -36,7 +36,8 @@ def comput_distmat(qf, gf, input_type='torch'):
     else:
         distmat = torch.pow(qf, 2).sum(dim=1, keepdim=True).expand(m, n) + \
                   torch.pow(gf, 2).sum(dim=1, keepdim=True).expand(n, m).t()
-        distmat.addmm_(1, -2, qf, gf.t())
+        # distmat.addmm_(1, -2, qf, gf.t())
+        distmat.addmm_(qf, gf.t(), 1, -2)
         indices = torch.argsort(distmat, dim=1)
     return distmat, indices
 
@@ -46,7 +47,7 @@ def database_aug(gf, top_k=10):
     m, n = gf.shape[0], gf.shape[0]
     distmat = torch.pow(gf, 2).sum(dim=1, keepdim=True).expand(m, n) + \
               torch.pow(gf, 2).sum(dim=1, keepdim=True).expand(n, m).t()
-    distmat.addmm_(1, -2, gf, gf.t())
+    distmat.addmm_(gf, gf.t(), 1, -2)
     indices = np.argsort(distmat.cpu().numpy(), axis=1)
     expanded_gf = (gf[indices[:, :top_k]]).mean(dim=1)
     return expanded_gf
@@ -81,9 +82,16 @@ def re_ranking(probFea, galFea, k1, k2, lambda_value, local_distmat=None, only_l
     else:
         feat = torch.cat([probFea,galFea])
         print('using GPU to compute original distance')
-        distmat = torch.pow(feat,2).sum(dim=1, keepdim=True).expand(all_num,all_num) + \
+        distmat = torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num,all_num) + \
                       torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num, all_num).t()
-        distmat.addmm_(1,-2,feat,feat.t())
+
+        distmat.addmm_(feat, feat.t(), 1, -2)
+
+    # /pytorch/torch/csrc/utils/python_arg_parser.cpp:756: UserWarning: This overload of addmm_ is deprecated:
+    # addmm_(Number beta, Number alpha, Tensor mat1, Tensor mat2)
+    # Consider using one of the following signatures instead:
+    # addmm_(Tensor mat1, Tensor mat2, *, Number beta, Number alpha)
+
         original_dist = distmat.cpu().numpy()
         del feat
         if not local_distmat is None:
@@ -172,7 +180,7 @@ def re_ranking_test_data(feat_mat, k1, k2, lambda_value, local_distmat=None, onl
         print('using GPU to compute original distance')
         distmat = torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num,all_num) + \
                   torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num, all_num).t()
-        distmat.addmm_(1,-2,feat, feat.t())
+        distmat.addmm_(feat, feat.t(), 1, -2)
         original_dist = distmat.cpu().numpy()
         del feat
         if not local_distmat is None:
