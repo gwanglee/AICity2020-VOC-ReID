@@ -70,7 +70,7 @@ class PersonX_Spgan_Test(BaseImageDataset):
                 lines = rf.readlines()
                 for line in lines:
                     words = line.strip().split()
-                    data.append((os.path.join(dir_path, words[0]), int(words[2]), int(words[1])))
+                    data.append((os.path.join(dir_path, words[0]), 0, 0))
 
 
         return data
