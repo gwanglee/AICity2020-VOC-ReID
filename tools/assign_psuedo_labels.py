@@ -3,9 +3,17 @@ import cv2
 import os
 
 DEBUG = True
+USE_RERANK = True
 
 if __name__ == '__main__':
-    npy_path = '/Users/gglee/Downloads/feat_distmat.npy'
+    if USE_RERANK:
+        npy_path = './dist_mat_reranked.npy'
+    else:
+        npy_path = '/Users/gglee/Downloads/feat_distmat.npy'
+
+    # 1. how did I rerank?
+    # 2. use clustering here also
+
     distmat = np.load(npy_path)
 
     print(distmat.shape)
@@ -14,10 +22,13 @@ if __name__ == '__main__':
     in_th = np.argwhere(distmat < np.mean(distmat)/2.0)
     print('num elm', len(in_th))
 
-    assert distmat[100][50] == distmat[50][100]
-    assert distmat[22][4412] == distmat[4412][22]
+    # assert distmat[100][50] == distmat[50][100]
+    # assert distmat[22][4412] == distmat[4412][22]
 
-    val_pair = sorted([(distmat[i[0], i[1]], i[0], i[1]) for i in in_th if i[0] < i[1]])
+    if USE_RERANK:
+        val_pair = sorted([(distmat[i[0], i[1]], i[0], i[1]) for i in in_th])
+    else:
+        val_pair = sorted([(distmat[i[0], i[1]], i[0], i[1]) for i in in_th if i[0] < i[1]])
 
     if DEBUG:
         # how much of distnace is different???
@@ -26,8 +37,13 @@ if __name__ == '__main__':
         for i in range(100):
             dist, x, y = val_pair[i]
             # dist, x, y = val_pair[int(i*len(val_pair)/100)]
-            img1 = cv2.imread(os.path.join(img_path, '{:05d}.jpg'.format(x+1)))
-            img2 = cv2.imread(os.path.join(img_path, '{:05d}.jpg'.format(y+1)))
+            img1 = cv2.imread(os.path.join(img_path, '{:05d}.jpg'.format(x)))
+
+            if USE_RERANK:
+                img2 = cv2.imread(os.path.join(img_path, '{:05d}.jpg'.format(y+distmat.shape[0])))
+            else:
+                img2 = cv2.imread(os.path.join(img_path, '{:05d}.jpg'.format(y)))
+
             img  = cv2.hconcat([img1, img2])
             cv2.line(img, (64, 0), (64, 128), (255, 255, 255))
 

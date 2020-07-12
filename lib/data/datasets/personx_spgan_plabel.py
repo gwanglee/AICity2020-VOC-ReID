@@ -38,8 +38,10 @@ class PersonX_Spgan_Plabel(BaseImageDataset):
         # gallery = self.process_dir(gallery_path)#, './lib/data/datasets/index_validation_gallery.txt')
 
         self.train = train
-        self.query = train[:int(len(train)/2)]
-        self.gallery = train[int(len(train)/2):]
+
+        nums = int(len(train)*0.15)
+        self.query = train[:nums]
+        self.gallery = train[nums:]
 
         self.num_train_pids, self.num_train_imgs, self.num_train_cams = self.get_imagedata_info(self.train)
         self.num_query_pids, self.num_query_imgs, self.num_query_cams = self.get_imagedata_info(self.query)
@@ -56,7 +58,6 @@ class PersonX_Spgan_Plabel(BaseImageDataset):
 
 
     def process_dir(self, dir_path, list_path=None):
-
         data = []
         if list_path is None:
             for img in os.listdir(dir_path):

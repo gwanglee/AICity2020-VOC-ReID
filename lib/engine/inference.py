@@ -45,7 +45,6 @@ def inference(
     return indices_np
 
 
-### how to ?
 def inference_to_get_feats(
         cfg,
         model,

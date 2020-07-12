@@ -176,6 +176,7 @@ if __name__ == '__main__':
         output_path = 'logs.txt'
     else:
         root_path = '/Users/gglee/Documents/VisDA/code/AICity2020-VOC-ReID/output/visda/base-ensemble-0704'
+        # root_path = '/Users/gglee/Downloads/VisDA/code/AICity2020-VOC-ReID/output/visda/base-ensemble-0704'
         output_path = 'logs.txt'
 
 

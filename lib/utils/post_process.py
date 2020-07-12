@@ -155,8 +155,10 @@ def re_ranking(probFea, galFea, k1, k2, lambda_value, local_distmat=None, only_l
 def re_ranking_test_data(feat_mat, k1, k2, lambda_value, local_distmat=None, only_local=False,
                USE_VOC=False, cam_dist=None, ori_dist=None):
     # if feature vector is numpy, you should use 'torch.tensor' transform it to tensor
-    query_num = probFea.size(0)
+    # query_num = probFea.size(0)
+
     all_num = feat_mat.shape[0] #query_num + galFea.size(0)
+    query_num = int(all_num / 6.0)
 
     if only_local:
         original_dist = local_distmat
@@ -164,7 +166,7 @@ def re_ranking_test_data(feat_mat, k1, k2, lambda_value, local_distmat=None, onl
         # feat = torch.cat([probFea, galFea])
         feat = feat_mat
         print('using GPU to compute original distance')
-        distmat = torch.pow(feat,2).sum(dim=1, keepdim=True).expand(all_num,all_num) + \
+        distmat = torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num,all_num) + \
                   torch.pow(feat, 2).sum(dim=1, keepdim=True).expand(all_num, all_num).t()
         distmat.addmm_(1,-2,feat, feat.t())
         original_dist = distmat.cpu().numpy()
@@ -205,6 +207,7 @@ def re_ranking_test_data(feat_mat, k1, k2, lambda_value, local_distmat=None, onl
         weight = np.exp(-original_dist[i, k_reciprocal_expansion_index])
         V[i, k_reciprocal_expansion_index] = weight / np.sum(weight)
     original_dist = original_dist[:query_num, ]
+
     if k2 != 1:
         V_qe = np.zeros_like(V, dtype=np.float16)
         for i in range(all_num):
@@ -418,3 +421,20 @@ def generate_track_distmat(distmat, track_idxs):
         track_distmat.append(distmat[:, track_idx].min(1)[:, np.newaxis])
     track_distmat = np.hstack(track_distmat)
     return track_distmat
+
+
+
+if __name__ == '__main__':
+    import numpy as np
+
+    feats = np.load('/Users/gglee/Downloads/feats.npy')
+    nums = int(feats.shape[0]/2.0)
+
+    # feat_tensor = torch.from_numpy(feats).floa:t().to('cpu')
+    que = torch.from_numpy(feats[:nums, :]).float().to('cpu')
+    gal = torch.from_numpy(feats[nums:, :]).float().to('cpu')
+
+    reranked = re_ranking(que, gal, 50, 15, 0.5)
+
+    np.save('./dist_mat_reranked.npy', reranked)
+    print('dist_mat_reranked saved')
