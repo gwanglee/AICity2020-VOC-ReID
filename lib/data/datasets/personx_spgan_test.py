@@ -35,7 +35,7 @@ class PersonX_Spgan_Test(BaseImageDataset):
 
         # train = self.process_dir(train_path)
         query = self.process_dir(query_path, './data/challenge_datasets/target_test/index_test_query.txt')
-        gallery = self.process_dir(gallery_path, './data/challenge_datasets/target_test/index_test_gallery/.txt')
+        gallery = self.process_dir(gallery_path, './data/challenge_datasets/target_test/index_test_gallery.txt')
         train = query
 
         self.train = train
